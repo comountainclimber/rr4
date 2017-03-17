@@ -14,6 +14,15 @@ const isActiveFunc = match => match
 const Home = () =>
   <h1> Welcome home </h1>
 
+const Nested = () => (
+  <div>
+    <h1> Nested </h1>
+    <Link to="/nested/foo"> Foo </Link>
+    <Link to="/nested/bar"> Bar </Link>
+    <Route path="/nested/foo" render={() => <h1> nested foo! </h1>} />
+    <Route path="/nested/bar" render={() => <h1> nested bar! </h1>} />
+  </div>
+)
 
 // regular expression to validate url and render accordingly
 const MoreUrlParams = () =>
@@ -41,6 +50,7 @@ const Links = () => (
     <NavLink activeClassName="active" to={{pathname: '/page/foo'}}> PAGE </NavLink>
     <NavLink activeClassName="active" to={{pathname: '/query', search: 'id=666'}}> QUERY </NavLink>
     <NavLink activeClassName="active" to={{pathname: '/66.html'}}> REGEX FUN </NavLink>
+    <NavLink activeClassName="active" to={{pathname: '/nested'}}> REGEX FUN </NavLink>
     <NavLink
       isActive={isActiveFunc}
       activeClassName="active"
@@ -60,6 +70,7 @@ const App = () =>
         <Route exact path="/" component={Home} />
         <Route path="/about" render={(match) => match && <h1> about </h1>} />
         <Route path="/contact" render={(match) => match && <h1> contact </h1>} />
+        <Route path="/nested" component={Nested} />
         <Route path="/query" render={({match, location}) => (
             match &&
             <div>
